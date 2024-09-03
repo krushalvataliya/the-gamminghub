@@ -12,9 +12,9 @@ class Kv
 		$front->init();
 	}
 
-	public static function getCsvDir()
+	public static function getApiFile()
 	{
-		return '.'. DS .'var'. DS .'uploads'. DS;
+		return '.'. DS .'assets'. DS .'gameapi.json';
 	}
 }
 

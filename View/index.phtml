@@ -1,4 +1,8 @@
-<?php $games = $this->getAllGames() ?>
+<?php
+$games = $this->getAllGames();
+$currentPage = $this->getCurrentPage();
+$totalPages = $this->getTotalPages();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,34 +41,165 @@
   <div class="container">
     <!-- <div class="row"> -->
       <!-- <div class="col-lg-12"> -->
+            <div id="game-container" class="mb-4">
+                <button id="close-iframe" onclick="closeGame()" style="display: none;">&times; Close</button>
+                <iframe id="game-frame" src="" frameborder="0" style="width: 100%; height: 0; display: none;"></iframe>
+            </div>
         <div class="page-content">
           <div class="most-popular">
             <div class="row">
               <div class="col-lg-15">
-                <div class="row">
-                    <?php foreach ($games as $row): ?>
+                <!-- <div class="row">
+                    <?php//  foreach ($games as $row): ?>
                     <div class="col-lg-3 col-sm-1">
                       <div class="item">
-                        <img src="<?php echo $row['thumb'] ?>" alt="<?php echo $row['title'] ?>">
-                        <h4><?php echo $row['title'] ?></h4>
+                        <img src="<?php // echo $row['thumb'] ?>" alt="<?php // echo $row['title'] ?>">
+                        <h4><?php // echo $row['title'] ?></h4>
                         <ul>
                           <li><i class="fa fa-star"></i> 4.8</li>
                           <li><i class="fa fa-download"></i> 2.3M</li>
                         </ul>
                       </div>
                     </div>
-                    <?php endforeach ?>
+                    <?php // endforeach ?>
+                </div> -->
+                                <div class="row">
+                    <?php foreach ($games as $row): ?>
+                    <div class="col-lg-3 col-sm-6 mb-4">
+                        <div class="card">
+                            <img class="card-img-top <?php echo $row['isLandscape'] ? 'landscape' : 'portrait'; ?>" 
+                                 src="<?php echo $row['thumb']; ?>" 
+                                 alt="<?php echo htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                                <p class="card-text"><?php echo htmlspecialchars($row['description'], ENT_QUOTES, 'UTF-8'); ?></p>
+                                <button onclick="loadGame('<?php echo $row['url']; ?>')" class="btn btn-primary">Play Now</button>
+                                <!-- <a href="<?php // echo $row['url']; ?>" class="btn btn-primary" target="_blank">Play Now</a> -->
+                            </div>
+                            <div class="card-footer">
+                                <ul class="list-inline">
+                                    <?php
+                                    $randomRating = mt_rand(35, 50) / 10; // Generates a random rating between 3.5 and 5.0
+                                    $randomDownloads = mt_rand(100000, 5000000); // Generates a random number between 100K and 5M
+                                    ?>
+                                    <li class="list-inline-item"><i class="fa fa-star"></i> <?php echo number_format($randomRating, 1); ?></li>
+                                    <li class="list-inline-item"><i class="fa fa-download"></i> <?php echo number_format($randomDownloads / 1000000, 1); ?>M</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
     </div>
+    <div class="pagination">
+      <?php if ($currentPage > 1): ?>
+          <a href="?p=<?php echo $currentPage - 1; ?>">&laquo; Previous</a>
+      <?php endif; ?>
+
+      <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+          <a href="?p=<?php echo $i; ?>" class="<?php echo $i == $currentPage ? 'active' : ''; ?>">
+              <?php echo $i; ?>
+          </a>
+      <?php endfor; ?>
+
+      <?php if ($currentPage < $totalPages): ?>
+          <a href="?p=<?php echo $currentPage + 1; ?>">Next &raquo;</a>
+      <?php endif; ?>
   </div>
-</div>
+    </div>
+  </div>
 <?php require_once "View/html/footer.phtml" ?>
+<style type="text/css">
+  #game-container {
+    margin-top: 200px;
+  }
+
+  #game-frame html{
+      overflow: hidden;
+  }
+
+  #game-frame {
+      width: 100%;
+      height: 0;
+      border: none;
+      overflow: hidden;
+      transition: height 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+      #game-frame {
+        width: 129%;
+          height: 400px;
+      }
+  }
+
+  .landscape {
+      object-fit: cover;
+      width: 100%;
+      height: 250px;
+  }
+
+  .portrait {
+      object-fit: cover;
+      width: 100%;
+      height: 250px;
+  }
+
+  .pagination {
+    justify-content: center;
+    margin-bottom: 29px;
+  }
+  .pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+
+  .pagination a.active {
+      background-color: #4CAF50;
+      color: white;
+      border: 1px solid #4CAF50;
+  }
+
+  .pagination a:hover:not(.active) {
+      background-color: #ddd;
+  }
+</style>
 <!-- Scripts -->
 <!-- Bootstrap core JavaScript -->
+<script>
+function loadGame(url) {
+    var iframe = document.getElementById('game-frame');
+    var closeButton = document.getElementById('close-iframe');
+    
+    iframe.src = url;
+    iframe.style.display = 'block';
+    iframe.style.height = '753px'; // Adjust height for better responsiveness
+    closeButton.style.display = 'block';
+    
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scroll to the top
+    });
+}
+
+function closeGame() {
+    var iframe = document.getElementById('game-frame');
+    var closeButton = document.getElementById('close-iframe');
+    
+    iframe.src = ''; // Clear the iframe source
+    iframe.style.display = 'none';
+    iframe.style.height = '0';
+    closeButton.style.display = 'none';
+}
+</script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/isotope.min.js"></script>
