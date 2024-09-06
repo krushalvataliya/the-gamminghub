@@ -29,11 +29,18 @@ class Controller_Index extends Controller_Core_Action
 	        $games = $data['pageProps']['data']['ALLGamesList'];
 	        if (isset($_GET['cid']) && !empty($_GET['cid'])) {
 		        $categoryId = $_GET['cid'];
-		        // Filter the games based on the selected categoryId
 		        $games = array_filter($games, function($game) use ($categoryId) {
 		            return $game['categoryId'] == $categoryId;
 		        });
 		    }
+
+		    if (isset($_GET['searchKeyword']) && !empty($_GET['searchKeyword'])) {
+			    $searchKeyword = strtolower(trim($_GET['searchKeyword']));
+			    $games = array_filter($games, function($game) use ($searchKeyword) {
+			        return (stripos($game['title'], $searchKeyword) !== false) || 
+			               (stripos($game['description'], $searchKeyword) !== false);
+			    });
+			}
 	        $this->totalGames = count($games);
 	        $this->totalPages = ceil($this->totalGames / $this->getGamesPerPage());
 	        $this->setCurrentPage(isset($_GET['p']) ? (int)$_GET['p'] : 1);
