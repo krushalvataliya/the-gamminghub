@@ -27,9 +27,17 @@ class Controller_Index extends Controller_Core_Action
 	            throw new Exception('Failed to decode JSON: ' . json_last_error_msg());
 	        }
 	        $games = $data['pageProps']['data']['ALLGamesList'];
+	        if (isset($_GET['cid']) && !empty($_GET['cid'])) {
+		        $categoryId = $_GET['cid'];
+		        // Filter the games based on the selected categoryId
+		        $games = array_filter($games, function($game) use ($categoryId) {
+		            return $game['categoryId'] == $categoryId;
+		        });
+		    }
 	        $this->totalGames = count($games);
 	        $this->totalPages = ceil($this->totalGames / $this->getGamesPerPage());
 	        $this->setCurrentPage(isset($_GET['p']) ? (int)$_GET['p'] : 1);
+
 	        $startIndex = ($this->getCurrentPage() - 1) * $this->getGamesPerPage();
 	        return array_slice($games, $startIndex, $this->getGamesPerPage());
 

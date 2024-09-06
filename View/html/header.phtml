@@ -1,39 +1,33 @@
 <header class="header-area header-sticky">
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <nav class="main-nav">
-                <!-- ***** Logo Start ***** -->
-                <a href="index.html" class="logo">
-                    <img src="assets/images/logo.png" alt="">
-                </a>
-                <!-- ***** Logo End ***** -->
-                <!-- ***** Search End ***** -->
-                <div class="search-input">
-                  <form id="search" action="#">
-                    <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                    <i class="fa fa-search"></i>
-                  </form>
-                </div>
-                <!-- ***** Search End ***** -->
-                <!-- ***** Menu Start ***** -->
-                <ul class="nav">
-                  <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                  <li><a href="browse.html"><i class="fas fa-fire"></i> Hot</a></li>
-                  <li><a href="details.html"><i class="fas fa-star"></i> New</a></li>
-                  <li><a href="details.html"><i class="fas fa-star"></i> Category</a></li>
-                  <!-- <li><a href="streams.html"><i class="7"></i> Category</a></li> -->
-                  <!-- <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li> -->
-              </ul>
-                <a class='menu-trigger'>
-                    <span>Menu</span>
-                </a>
-                <!-- ***** Menu End ***** -->
-            </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <a href="<?php echo $this->getUrl('index', 'index', [], true) ?>" class="logo">
+                        <img src="assets/images/logo.png" alt="">
+                    </a>
+                    <div class="search-input">
+                      <form id="search" action="#">
+                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
+                        <i class="fa fa-search"></i>
+                      </form>
+                    </div>
+                    <ul class="nav">
+                        <li><a href="index.php?cid=11" class="active"><i class="fas fa-fire"></i> Hot</a></li>
+                        <li><a href="index.php?cid=3"><i class="fas fa-star"></i> New</a></li>
+                        <li><a href="index.php?cid=7"><i class="fas fa-futbol"></i> Sports</a></li>
+                        <li><a href="index.php?cid=5"><i class="fas fa-bolt"></i> Action</a></li>
+                        <li><a href="index.php?cid=6"><i class="fas fa-gamepad"></i> Arcade</a></li>
+                        <li><a href="index.php?cid=8"><i class="fas fa-brain"></i> Puzzle</a></li>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
 </header>
- <?php 
+<?php 
 require_once "message.php";
- ?>
+?>
