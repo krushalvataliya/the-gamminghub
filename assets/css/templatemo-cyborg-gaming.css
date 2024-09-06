@@ -100,6 +100,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0px;
   color: #000000;
   font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 ul {
@@ -483,11 +485,11 @@ Header Style
   color: #4CAF50 !important;
 }
 
-.header-area .main-nav .nav li:last-child:hover a,
+/* .header-area .main-nav .nav li:last-child:hover a,
 .header-area .main-nav .nav li:last-child a.active {
   color: #fff !important;
   background-color: #4CAF50 !important;
-}
+} */
 
 .background-header .main-nav .nav li:hover a,
 .background-header .main-nav .nav li a.active {
