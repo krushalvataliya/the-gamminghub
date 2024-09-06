@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once 'Model/Core/Session.php';
 /**
  * 
  */
@@ -11,13 +12,13 @@ class Model_Core_Message
 
     public function __construct()
     {
-            $this->getSession();
+        $this->getSession();
     }
     public function getSession()
     {
         if($this->session)
         {
-        return $this->session;
+            return $this->session;
         }
         $session = new Model_Core_Session();
         $this->setSession($session);
@@ -50,6 +51,7 @@ class Model_Core_Message
     public function clearMessages()
     {
         $this->getSession()->set('message', []);
+        $_SESSION['message'] = [];
         return $this;
         
     }

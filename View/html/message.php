@@ -13,5 +13,4 @@ if($messages)
 	}
 }
 $messageModel->clearMessages();
-
 ?>

@@ -1735,3 +1735,84 @@ body {
     width: 16%;
   }
 }
+
+#game-container {
+  margin-top: 200px;
+}
+
+#game-frame html{
+    overflow: hidden;
+}
+
+#game-frame {
+    width: 100%;
+    height: 0;
+    border: none;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    #game-frame {
+      width: 129%;
+        height: 400px;
+    }
+}
+
+.landscape {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+}
+
+.portrait {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+}
+
+.pagination {
+  justify-content: center;
+  margin-bottom: 29px;
+}
+.pagination a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.success {
+    color: #270;
+    background-color: #DFF2BF;
+    display: block;
+    text-align-last: center;
+    margin-bottom: 10px;
+}
+
+.failure {
+    color: #D8000c;
+    background-color: #FFBABA;
+    display: block;
+    text-align-last: center;
+    margin-bottom: 10px;
+}
+
+.notice {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    display: block;
+    text-align-last: center;
+    margin-bottom: 10px;
+}
